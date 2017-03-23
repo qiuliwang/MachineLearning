@@ -45,3 +45,5 @@ Only used if method=’barnes_hut’ This is the trade-off between spee
 Stores the embedding vectors.
 ###kl_divergence_ : float
 Kullback-Leibler divergence after optimization.
+
+---
