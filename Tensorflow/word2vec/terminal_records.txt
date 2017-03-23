@@ -1,0 +1,38 @@
+Found and verified text8.zip
+data ['anarchism', 'originated', 'as', 'a', 'term', 'of', 'abuse', 'first', 'used', 'against', 'early', 'working', 'class', 'radicals', 'including', 'the', 'diggers', 'of', 'the', 'english']
+Data size 17005207
+Most common words (+UNK) [['UNK', 418391], ('the', 1061396), ('of', 593677), ('and', 416629), ('one', 411764)]
+Sample data [5239, 3084, 12, 6, 195, 2, 3137, 46, 59, 156] ['anarchism', 'originated', 'as', 'a', 'term', 'of', 'abuse', 'first', 'used', 'against']
+3084 originated -> 5239 anarchism
+3084 originated -> 12 as
+12 as -> 3084 originated
+12 as -> 6 a
+6 a -> 195 term
+6 a -> 12 as
+195 term -> 2 of
+195 term -> 6 a
+WARNING:tensorflow:From word2vec_basic.py:193: initialize_all_variables (from tensorflow.python.ops.variables) is deprecated and will be removed after 2017-03-02.
+Instructions for updating:
+Use `tf.global_variables_initializer` instead.
+2017-03-18 22:28:44.531878: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2017-03-18 22:28:44.531897: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-03-18 22:28:44.531903: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+Initialized
+Average loss at step  0 :  268.715148926
+Nearest to may: cayce, heck, footprint, mispronounced, monk, shih, vijay, mckay,
+Nearest to his: celebrations, amal, giorgio, rogers, satsuki, axioms, tonga, ack,
+Nearest to had: tala, instrumentalists, hari, friction, halakhic, seagull, roald, colonist,
+Nearest to war: furioso, slavic, lobo, therese, advent, albinism, baptisms, infrastructures,
+Nearest to i: seasonal, absorbed, ethidium, insubordination, prepare, nssdc, unnatural, prejudices,
+Nearest to use: apologized, adret, degas, added, quarrels, osprey, kilby, plains,
+Nearest to known: dobson, migrations, extant, charleroi, coastal, pentateuch, napo, vincendeau,
+Nearest to it: nous, cycled, avicenna, amid, jelly, overcrowded, bledsoe, iquique,
+Nearest to that: hylas, man, backstory, honorable, slump, fear, enemy, upland,
+Nearest to b: unambiguously, fudge, panel, ecliptic, eloquence, signaling, swordsman, tabby,
+Nearest to th: infinitives, unhelpful, cosine, amniotic, rwanda, dubbed, minutes, heir,
+Nearest to called: kryptonians, retires, stara, welcomes, dying, literate, gestae, steinberg,
+Nearest to six: karpov, shoals, kornbluth, mantled, francais, ned, chokes, presbyterian,
+Nearest to would: ritualistic, flavored, cliches, galahad, davenport, vitruvius, cage, throat,
+Nearest to to: crone, cav, dhtml, lags, hayek, dissertation, ars, oud,
+Nearest to new: crack, rapidly, previous, transpose, nominally, framework, galapagos, overlooks,
+Average loss at step  2000 :  113.818183357
