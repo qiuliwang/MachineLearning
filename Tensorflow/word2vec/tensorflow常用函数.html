@@ -1,0 +1,913 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+     
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    
+<head> 
+  <meta charset="UTF-8">
+  <style type="text/css">
+            .tab{border-top:1px solid #000;border-left:1px solid #000;text-align:center}
+            .tab td{border-bottom:1px solid #000;border-right:1px solid #000;}
+  </style> 
+</head>
+
+<body>
+
+
+
+<h3 id="1tensorflow的基本运作">1、tensorflow的基本运作</h3>
+
+<p>为了快速的熟悉TensorFlow编程，下面从一段简单的代码开始：</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf
+ <span class="hljs-comment">#定义‘符号’变量，也称为占位符</span>
+ a = tf.placeholder(<span class="hljs-string">"float"</span>)
+ b = tf.placeholder(<span class="hljs-string">"float"</span>)
+
+ y = tf.mul(a, b) <span class="hljs-comment">#构造一个op节点</span>
+
+ sess = tf.Session()<span class="hljs-comment">#建立会话</span>
+ <span class="hljs-comment">#运行会话，输入数据，并计算节点，同时打印结果</span>
+ <span class="hljs-keyword">print</span> sess.run(y, feed_dict={a: <span class="hljs-number">3</span>, b: <span class="hljs-number">3</span>})
+ <span class="hljs-comment"># 任务完成, 关闭会话.</span>
+ sess.close()</code></pre>
+
+<p>其中tf.mul(a, b)函数便是tf的一个基本的算数运算，接下来介绍跟多的相关函数。</p>
+
+
+
+<h3 id="2tf函数">2、tf函数</h3>
+
+<pre><code>TensorFlow 将图形定义转换成分布式执行的操作, 以充分利用可用的计算资源(如 CPU 或 GPU。一般你不需要显式指定使用 CPU 还是 GPU, TensorFlow 能自动检测。如果检测到 GPU, TensorFlow 会尽可能地利用找到的第一个 GPU 来执行操作.
+并行计算能让代价大的算法计算加速执行，TensorFlow也在实现上对复杂操作进行了有效的改进。大部分核相关的操作都是设备相关的实现，比如GPU。下面是一些重要的操作/核：
+</code></pre>
+
+<table style="border-color: black; ">
+<thead>
+<tr>
+  <th>操作组</th>
+  <th align="left">操作</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td>Maths</td>
+  <td align="left">Add, Sub, Mul, Div, Exp, Log, Greater, Less, Equal</td>
+</tr>
+<tr>
+  <td>Array</td>
+  <td align="left">Concat, Slice, Split, Constant, Rank, Shape, Shuffle</td>
+</tr>
+<tr>
+  <td>Matrix</td>
+  <td align="left">MatMul, MatrixInverse, MatrixDeterminant</td>
+</tr>
+<tr>
+  <td>Neuronal Network</td>
+  <td align="left">SoftMax, Sigmoid, ReLU, Convolution2D, MaxPool</td>
+</tr>
+<tr>
+  <td>Checkpointing</td>
+  <td align="left">Save, Restore</td>
+</tr>
+<tr>
+  <td>Queues and syncronizations</td>
+  <td align="left">Enqueue, Dequeue, MutexAcquire, MutexRelease</td>
+</tr>
+<tr>
+  <td>Flow control</td>
+  <td align="left">Merge, Switch, Enter, Leave, NextIteration</td>
+</tr>
+</tbody></table>
+
+
+
+
+<h4 id="tensorflow的算术操作如下">TensorFlow的算术操作如下：</h4>
+
+<table class="tab" style="border: solid thin black">
+<thead>
+<tr>
+  <th>操作</th>
+  <th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td>tf.add(x, y, name=None)</td>
+  <td align="left">求和</td>
+</tr>
+<tr>
+  <td>tf.sub(x, y, name=None)</td>
+  <td align="left">减法</td>
+</tr>
+<tr>
+  <td>tf.mul(x, y, name=None)</td>
+  <td align="left">乘法</td>
+</tr>
+<tr>
+  <td>tf.div(x, y, name=None)</td>
+  <td align="left">除法</td>
+</tr>
+<tr>
+  <td>tf.mod(x, y, name=None)</td>
+  <td align="left">取模</td>
+</tr>
+<tr>
+  <td>tf.abs(x, name=None)</td>
+  <td align="left">求绝对值</td>
+</tr>
+<tr>
+  <td>tf.neg(x, name=None)</td>
+  <td align="left">取负  (y = -x).</td>
+</tr>
+<tr>
+  <td>tf.sign(x, name=None)</td>
+  <td align="left">返回符号 y = sign(x) = -1 if x &lt; 0; 0 if x == 0; 1 if x &gt; 0.</td>
+</tr>
+<tr>
+  <td>tf.inv(x, name=None)</td>
+  <td align="left">取反</td>
+</tr>
+<tr>
+  <td>tf.square(x, name=None)</td>
+  <td align="left">计算平方 (y = x * x = x^2).</td>
+</tr>
+<tr>
+  <td>tf.round(x, name=None)</td>
+  <td align="left">舍入最接近的整数<br># ‘a’ is [0.9, 2.5, 2.3, -4.4]<br>tf.round(a) ==&gt; [ 1.0, 3.0, 2.0, -4.0 ]</td>
+</tr>
+<tr>
+  <td>tf.sqrt(x, name=None)</td>
+  <td align="left">开根号 (y = \sqrt{x} = x^{1/2}).</td>
+</tr>
+<tr>
+  <td>tf.pow(x, y, name=None)</td>
+  <td align="left">幂次方 <br># tensor ‘x’ is [[2, 2], [3, 3]]<br># tensor ‘y’ is [[8, 16], [2, 3]]<br>tf.pow(x, y) ==&gt; [[256, 65536], [9, 27]]</td>
+</tr>
+<tr>
+  <td>tf.exp(x, name=None)</td>
+  <td align="left">计算e的次方</td>
+</tr>
+<tr>
+  <td>tf.log(x, name=None)</td>
+  <td align="left">计算log，一个输入计算e的ln，两输入以第二输入为底</td>
+</tr>
+<tr>
+  <td>tf.maximum(x, y, name=None)</td>
+  <td align="left">返回最大值 (x &gt; y ? x : y)</td>
+</tr>
+<tr>
+  <td>tf.minimum(x, y, name=None)</td>
+  <td align="left">返回最小值 (x &lt; y ? x : y)</td>
+</tr>
+<tr>
+  <td>tf.cos(x, name=None)</td>
+  <td align="left">三角函数cosine</td>
+</tr>
+<tr>
+  <td>tf.sin(x, name=None)</td>
+  <td align="left">三角函数sine</td>
+</tr>
+<tr>
+  <td>tf.tan(x, name=None)</td>
+  <td align="left">三角函数tan</td>
+</tr>
+<tr>
+  <td>tf.atan(x, name=None)</td>
+  <td align="left">三角函数ctan</td>
+</tr>
+</tbody></table>
+
+
+<hr>
+
+
+
+<h4 id="张量操作tensor-transformations">张量操作Tensor Transformations</h4>
+
+<ul>
+<li>数据类型转换Casting</li>
+</ul>
+
+<table  class="tab" >
+<thead>
+<tr>
+  <th>操作</th>
+  <th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td>tf.string_to_number<br>(string_tensor, out_type=None, name=None)</td>
+  <td align="left">字符串转为数字</td>
+</tr>
+<tr>
+  <td>tf.to_double(x, name=’ToDouble’)</td>
+  <td align="left">转为64位浮点类型–float64</td>
+</tr>
+<tr>
+  <td>tf.to_float(x, name=’ToFloat’)</td>
+  <td align="left">转为32位浮点类型–float32</td>
+</tr>
+<tr>
+  <td>tf.to_int32(x, name=’ToInt32’)</td>
+  <td align="left">转为32位整型–int32</td>
+</tr>
+<tr>
+  <td>tf.to_int64(x, name=’ToInt64’)</td>
+  <td align="left">转为64位整型–int64</td>
+</tr>
+<tr>
+  <td>tf.cast(x, dtype, name=None)</td>
+  <td align="left">将x或者x.values转换为dtype<br># tensor <code>a</code> is [1.8, 2.2], dtype=tf.float<br>tf.cast(a, tf.int32) ==&gt; [1, 2]  # dtype=tf.int32</td>
+</tr>
+<tr>
+  <td></td>
+  <td align="left"></td>
+</tr>
+</tbody></table>
+
+
+<ul>
+<li>形状操作Shapes and Shaping</li>
+</ul>
+
+<table class="tab" >
+<thead>
+<tr>
+  <th>操作</th>
+  <th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td>tf.shape(input, name=None)</td>
+  <td align="left">返回数据的shape<br># ‘t’ is [[[1, 1, 1], [2, 2, 2]], [[3, 3, 3], [4, 4, 4]]]<br>shape(t) ==&gt; [2, 2, 3]</td>
+</tr>
+<tr>
+  <td>tf.size(input, name=None)</td>
+  <td align="left">返回数据的元素数量<br># ‘t’ is [[[1, 1, 1], [2, 2, 2]], [[3, 3, 3], [4, 4, 4]]]]<br>size(t) ==&gt; 12</td>
+</tr>
+<tr>
+  <td>tf.rank(input, name=None)</td>
+  <td align="left">返回tensor的rank<br>注意：此rank不同于矩阵的rank，<br>tensor的rank表示一个tensor需要的索引数目来唯一表示任何一个元素<br>也就是通常所说的 “order”, “degree”或”ndims”<br>#’t’ is [[[1, 1, 1], [2, 2, 2]], [[3, 3, 3], [4, 4, 4]]]<br># shape of tensor ‘t’ is [2, 2, 3]<br>rank(t) ==&gt; 3</td>
+</tr>
+<tr>
+  <td>tf.reshape(tensor, shape, name=None)</td>
+  <td align="left">改变tensor的形状<br># tensor ‘t’ is [1, 2, 3, 4, 5, 6, 7, 8, 9]<br># tensor ‘t’ has shape [9]<br>reshape(t, [3, 3]) ==&gt; <br>[[1, 2, 3],<br>[4, 5, 6],<br>[7, 8, 9]]<br>#如果shape有元素[-1],表示在该维度打平至一维<br># -1 将自动推导得为 9:<br>reshape(t, [2, -1]) ==&gt; <br>[[1, 1, 1, 2, 2, 2, 3, 3, 3],<br>[4, 4, 4, 5, 5, 5, 6, 6, 6]]</td>
+</tr>
+<tr>
+  <td>tf.expand_dims(input, dim, name=None)</td>
+  <td align="left">插入维度1进入一个tensor中<br>#该操作要求-1-input.dims()<br># ‘t’ is a tensor of shape [2]<br>shape(expand_dims(t, 0)) ==&gt; [1, 2]<br>shape(expand_dims(t, 1)) ==&gt; [2, 1]<br>shape(expand_dims(t, -1)) ==&gt; [2, 1] &lt;= dim &lt;= input.dims()</td>
+</tr>
+</tbody></table>
+
+
+<ul>
+<li>切片与合并（Slicing and Joining）</li>
+</ul>
+
+<table  class="tab" >
+<thead>
+<tr>
+  <th>操作</th>
+  <th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td>tf.slice(input_, begin, size, name=None)</td>
+  <td align="left">对tensor进行切片操作<br>其中size[i] = input.dim_size(i) - begin[i]<br>该操作要求 0 &lt;= begin[i] &lt;= begin[i] + size[i] &lt;= Di for i in [0, n]<br>#’input’ is <br>#[[[1, 1, 1], [2, 2, 2]],[[3, 3, 3], [4, 4, 4]],[[5, 5, 5], [6, 6, 6]]]<br>tf.slice(input, [1, 0, 0], [1, 1, 3]) ==&gt; [[[3, 3, 3]]]<br>tf.slice(input, [1, 0, 0], [1, 2, 3]) ==&gt; <br>[[[3, 3, 3],<br>[4, 4, 4]]]<br>tf.slice(input, [1, 0, 0], [2, 1, 3]) ==&gt; <br>[[[3, 3, 3]],<br>[[5, 5, 5]]]</td>
+</tr>
+<tr>
+  <td>tf.split(split_dim, num_split, value, name=’split’)</td>
+  <td align="left">沿着某一维度将tensor分离为num_split tensors<br># ‘value’ is a tensor with shape [5, 30]<br># Split ‘value’ into 3 tensors along dimension 1<br>split0, split1, split2 = tf.split(1, 3, value)<br>tf.shape(split0) ==&gt; [5, 10]</td>
+</tr>
+<tr>
+  <td>tf.concat(concat_dim, values, name=’concat’)</td>
+  <td align="left">沿着某一维度连结tensor<br>t1 = [[1, 2, 3], [4, 5, 6]]<br>t2 = [[7, 8, 9], [10, 11, 12]]<br>tf.concat(0, [t1, t2]) ==&gt; [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]]<br>tf.concat(1, [t1, t2]) ==&gt; [[1, 2, 3, 7, 8, 9], [4, 5, 6, 10, 11, 12]]<br>如果想沿着tensor一新轴连结打包,那么可以：<br>tf.concat(axis, [tf.expand_dims(t, axis) for t in tensors])<br>等同于tf.pack(tensors, axis=axis)</td>
+</tr>
+<tr>
+  <td>tf.pack(values, axis=0, name=’pack’)</td>
+  <td align="left">将一系列rank-R的tensor打包为一个rank-(R+1)的tensor<br># ‘x’ is [1, 4],  ‘y’ is [2, 5],  ‘z’ is [3, 6]<br>pack([x, y, z]) =&gt; [[1, 4], [2, 5], [3, 6]]  <br># 沿着第一维pack<br>pack([x, y, z], axis=1) =&gt; [[1, 2, 3], [4, 5, 6]]<br>等价于tf.pack([x, y, z]) = np.asarray([x, y, z])</td>
+</tr>
+<tr>
+  <td>tf.reverse(tensor, dims, name=None)</td>
+  <td align="left">沿着某维度进行序列反转<br>其中dim为列表，元素为bool型，size等于rank(tensor)<br># tensor ‘t’ is <br>[[[[ 0,  1,  2,  3],<br>#[ 4,  5,  6,  7],<br><br>#[ 8,  9, 10, 11]],<br>#[[12, 13, 14, 15],<br>#[16, 17, 18, 19],<br>#[20, 21, 22, 23]]]]<br># tensor ‘t’ shape is [1, 2, 3, 4]<br># ‘dims’ is [False, False, False, True]<br>reverse(t, dims) ==&gt;<br> [[[[ 3,  2,  1,  0],<br> [ 7,  6,  5,  4],<br>[ 11, 10, 9, 8]],<br> [[15, 14, 13, 12],<br> [19, 18, 17, 16],<br> [23, 22, 21, 20]]]]</td>
+</tr>
+<tr>
+  <td>tf.transpose(a, perm=None, name=’transpose’)</td>
+  <td align="left">调换tensor的维度顺序<br>按照列表perm的维度排列调换tensor顺序，<br>如为定义，则perm为(n-1…0)<br># ‘x’ is [[1 2 3],[4 5 6]]<br>tf.transpose(x) ==&gt; [[1 4], [2 5],[3 6]]<br># Equivalently<br>tf.transpose(x, perm=[1, 0]) ==&gt; [[1 4],[2 5], [3 6]]</td>
+</tr>
+<tr>
+  <td>tf.gather(params, indices, validate_indices=None, name=None)</td>
+  <td align="left">合并索引indices所指示params中的切片<br><img src="http://img.blog.csdn.net/20160808174705034" alt="tf.gather" title=""></td>
+</tr>
+<tr>
+  <td>tf.one_hot<br>(indices, depth, on_value=None, off_value=None, <br>axis=None, dtype=None, name=None)</td>
+  <td align="left">indices = [0, 2, -1, 1]<br>depth = 3<br>on_value = 5.0  <br>off_value = 0.0  <br>axis = -1  <br>#Then output is [4 x 3]: <br> output = <br> [5.0 0.0 0.0]  // one_hot(0)  <br>[0.0 0.0 5.0]  // one_hot(2) <br> [0.0 0.0 0.0]  // one_hot(-1) <br> [0.0 5.0 0.0]  // one_hot(1)</td>
+</tr>
+</tbody></table>
+
+
+<hr>
+
+
+
+<h4 id="矩阵相关运算">矩阵相关运算</h4>
+
+<table class="tab" >
+<thead>
+<tr>
+  <th>操作</th>
+  <th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td>tf.diag(diagonal, name=None)</td>
+  <td align="left">返回一个给定对角值的对角tensor<br># ‘diagonal’ is [1, 2, 3, 4]<br>tf.diag(diagonal) ==&gt; <br>[[1, 0, 0, 0]<br>[0, 2, 0, 0]<br>[0, 0, 3, 0]<br>[0, 0, 0, 4]]</td>
+</tr>
+<tr>
+  <td>tf.diag_part(input, name=None)</td>
+  <td align="left">功能与上面相反</td>
+</tr>
+<tr>
+  <td>tf.trace(x, name=None)</td>
+  <td align="left">求一个2维tensor足迹，即对角值diagonal之和</td>
+</tr>
+<tr>
+  <td>tf.transpose(a, perm=None, name=’transpose’)</td>
+  <td align="left">调换tensor的维度顺序<br>按照列表perm的维度排列调换tensor顺序，<br>如为定义，则perm为(n-1…0)<br># ‘x’ is [[1 2 3],[4 5 6]]<br>tf.transpose(x) ==&gt; [[1 4], [2 5],[3 6]]<br># Equivalently<br>tf.transpose(x, perm=[1, 0]) ==&gt; [[1 4],[2 5], [3 6]]</td>
+</tr>
+<tr>
+  <td>tf.matmul(a, b, transpose_a=False, <br>transpose_b=False, a_is_sparse=False, <br>b_is_sparse=False, name=None)</td>
+  <td align="left">矩阵相乘</td>
+</tr>
+<tr>
+  <td>tf.matrix_determinant(input, name=None)</td>
+  <td align="left">返回方阵的行列式</td>
+</tr>
+<tr>
+  <td>tf.matrix_inverse(input, adjoint=None, name=None)</td>
+  <td align="left">求方阵的逆矩阵，adjoint为True时，计算输入共轭矩阵的逆矩阵</td>
+</tr>
+<tr>
+  <td>tf.cholesky(input, name=None)</td>
+  <td align="left">对输入方阵cholesky分解，<br>即把一个对称正定的矩阵表示成一个下三角矩阵L和其转置的乘积的分解A=LL^T</td>
+</tr>
+<tr>
+  <td>tf.matrix_solve(matrix, rhs, adjoint=None, name=None)</td>
+  <td align="left">求解tf.matrix_solve(matrix, rhs, adjoint=None, name=None)<br>matrix为方阵shape为[M,M],rhs的shape为[M,K]，output为[M,K]</td>
+</tr>
+</tbody></table>
+
+
+<hr>
+
+
+
+<h4 id="复数操作">复数操作</h4>
+
+<table  class="tab" >
+<thead>
+<tr>
+  <th>操作</th>
+  <th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td>tf.complex(real, imag, name=None)</td>
+  <td align="left">将两实数转换为复数形式<br># tensor ‘real’ is [2.25, 3.25]<br># tensor <code>imag</code> is [4.75, 5.75]<br>tf.complex(real, imag) ==&gt; [[2.25 + 4.75j], [3.25 + 5.75j]]</td>
+</tr>
+<tr>
+  <td>tf.complex_abs(x, name=None)</td>
+  <td align="left">计算复数的绝对值，即长度。<br># tensor ‘x’ is [[-2.25 + 4.75j], [-3.25 + 5.75j]]<br>tf.complex_abs(x) ==&gt; [5.25594902, 6.60492229]</td>
+</tr>
+<tr>
+  <td>tf.conj(input, name=None)</td>
+  <td align="left">计算共轭复数</td>
+</tr>
+<tr>
+  <td>tf.imag(input, name=None)<br>tf.real(input, name=None)</td>
+  <td align="left">提取复数的虚部和实部</td>
+</tr>
+<tr>
+  <td>tf.fft(input, name=None)</td>
+  <td align="left">计算一维的离散傅里叶变换，输入数据类型为complex64</td>
+</tr>
+</tbody></table>
+
+
+<hr>
+
+
+
+<h4 id="归约计算reduction">归约计算(Reduction)</h4>
+
+<table class="tab" >
+<thead>
+<tr>
+  <th>操作</th>
+  <th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td>tf.reduce_sum(input_tensor, reduction_indices=None, <br>keep_dims=False, name=None)</td>
+  <td align="left">计算输入tensor元素的和，或者安照reduction_indices指定的轴进行求和<br># ‘x’ is [[1, 1, 1]<br>#         [1, 1, 1]]<br>tf.reduce_sum(x) ==&gt; 6<br>tf.reduce_sum(x, 0) ==&gt; [2, 2, 2]<br>tf.reduce_sum(x, 1) ==&gt; [3, 3]<br>tf.reduce_sum(x, 1, keep_dims=True) ==&gt; [[3], [3]]<br>tf.reduce_sum(x, [0, 1]) ==&gt; 6</td>
+</tr>
+<tr>
+  <td>tf.reduce_prod(input_tensor, <br>reduction_indices=None, <br>keep_dims=False, name=None)</td>
+  <td align="left">计算输入tensor元素的乘积，或者安照reduction_indices指定的轴进行求乘积</td>
+</tr>
+<tr>
+  <td>tf.reduce_min(input_tensor, <br>reduction_indices=None, <br>keep_dims=False, name=None)</td>
+  <td align="left">求tensor中最小值</td>
+</tr>
+<tr>
+  <td>tf.reduce_max(input_tensor, <br>reduction_indices=None, <br>keep_dims=False, name=None)</td>
+  <td align="left">求tensor中最大值</td>
+</tr>
+<tr>
+  <td>tf.reduce_mean(input_tensor, <br>reduction_indices=None, <br>keep_dims=False, name=None)</td>
+  <td align="left">求tensor中平均值</td>
+</tr>
+<tr>
+  <td>tf.reduce_all(input_tensor, <br>reduction_indices=None, <br>keep_dims=False, name=None)</td>
+  <td align="left">对tensor中各个元素求逻辑’与’<br># ‘x’ is <br># [[True,  True]<br>#         [False, False]]<br>tf.reduce_all(x) ==&gt; False<br>tf.reduce_all(x, 0) ==&gt; [False, False]<br>tf.reduce_all(x, 1) ==&gt; [True, False]</td>
+</tr>
+<tr>
+  <td>tf.reduce_any(input_tensor, <br>reduction_indices=None, <br>keep_dims=False, name=None)</td>
+  <td align="left">对tensor中各个元素求逻辑’或’</td>
+</tr>
+<tr>
+  <td>tf.accumulate_n(inputs, shape=None, <br>tensor_dtype=None, name=None)</td>
+  <td align="left">计算一系列tensor的和<br># tensor ‘a’ is [[1, 2], [3, 4]]<br># tensor <code>b</code> is [[5, 0], [0, 6]]<br>tf.accumulate_n([a, b, a]) ==&gt; [[7, 4], [6, 14]]</td>
+</tr>
+<tr>
+  <td>tf.cumsum(x, axis=0, exclusive=False, <br>reverse=False, name=None)</td>
+  <td align="left">求累积和<br>tf.cumsum([a, b, c]) ==&gt; [a, a + b, a + b + c]<br>tf.cumsum([a, b, c], exclusive=True) ==&gt; [0, a, a + b]<br>tf.cumsum([a, b, c], reverse=True) ==&gt; [a + b + c, b + c, c]<br>tf.cumsum([a, b, c], exclusive=True, reverse=True) ==&gt; [b + c, c, 0]</td>
+</tr>
+<tr>
+  <td></td>
+  <td align="left"></td>
+</tr>
+</tbody></table>
+
+
+<hr>
+
+
+
+<h4 id="分割segmentation">分割(Segmentation)</h4>
+
+<table class="tab" >
+<thead>
+<tr>
+  <th>操作</th>
+  <th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td>tf.segment_sum(data, segment_ids, name=None)</td>
+  <td align="left">根据segment_ids的分段计算各个片段的和<br>其中segment_ids为一个size与data第一维相同的tensor<br>其中id为int型数据，最大id不大于size<br>c = tf.constant([[1,2,3,4], [-1,-2,-3,-4], [5,6,7,8]])<br>tf.segment_sum(c, tf.constant([0, 0, 1]))<br>==&gt;[[0 0 0 0] <br>[5 6 7 8]]<br>上面例子分为[0,1]两id,对相同id的data相应数据进行求和,<br>并放入结果的相应id中，<br>且segment_ids只升不降</td>
+</tr>
+<tr>
+  <td>tf.segment_prod(data, segment_ids, name=None)</td>
+  <td align="left">根据segment_ids的分段计算各个片段的积</td>
+</tr>
+<tr>
+  <td>tf.segment_min(data, segment_ids, name=None)</td>
+  <td align="left">根据segment_ids的分段计算各个片段的最小值</td>
+</tr>
+<tr>
+  <td>tf.segment_max(data, segment_ids, name=None)</td>
+  <td align="left">根据segment_ids的分段计算各个片段的最大值</td>
+</tr>
+<tr>
+  <td>tf.segment_mean(data, segment_ids, name=None)</td>
+  <td align="left">根据segment_ids的分段计算各个片段的平均值</td>
+</tr>
+<tr>
+  <td>tf.unsorted_segment_sum(data, segment_ids,<br> num_segments, name=None)</td>
+  <td align="left">与tf.segment_sum函数类似，<br>不同在于segment_ids中id顺序可以是无序的</td>
+</tr>
+<tr>
+  <td>tf.sparse_segment_sum(data, indices, <br>segment_ids, name=None)</td>
+  <td align="left">输入进行稀疏分割求和<br>c = tf.constant([[1,2,3,4], [-1,-2,-3,-4], [5,6,7,8]])<br># Select two rows, one segment.<br>tf.sparse_segment_sum(c, tf.constant([0, 1]), tf.constant([0, 0])) <br> ==&gt; [[0 0 0 0]]<br>对原data的indices为[0,1]位置的进行分割，<br>并按照segment_ids的分组进行求和</td>
+</tr>
+</tbody></table>
+
+
+<hr>
+
+
+
+<h4 id="序列比较与索引提取sequence-comparison-and-indexing">序列比较与索引提取(Sequence Comparison and Indexing)</h4>
+
+<table class="tab" >
+<thead>
+<tr>
+  <th>操作</th>
+  <th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td>tf.argmin(input, dimension, name=None)</td>
+  <td align="left">返回input最小值的索引index</td>
+</tr>
+<tr>
+  <td>tf.argmax(input, dimension, name=None)</td>
+  <td align="left">返回input最大值的索引index</td>
+</tr>
+<tr>
+  <td>tf.listdiff(x, y, name=None)</td>
+  <td align="left">返回x，y中不同值的索引</td>
+</tr>
+<tr>
+  <td>tf.where(input, name=None)</td>
+  <td align="left">返回bool型tensor中为True的位置<br># ‘input’ tensor is <br>#[[True, False]<br>#[True, False]]<br># ‘input’ 有两个’True’,那么输出两个坐标值.<br># ‘input’的rank为2, 所以每个坐标为具有两个维度.<br>where(input) ==&gt;<br> [[0, 0],<br>[1, 0]]</td>
+</tr>
+<tr>
+  <td>tf.unique(x, name=None)</td>
+  <td align="left">返回一个元组tuple(y,idx)，y为x的列表的唯一化数据列表，<br>idx为x数据对应y元素的index<br># tensor ‘x’ is [1, 1, 2, 4, 4, 4, 7, 8, 8]<br>y, idx = unique(x)<br>y ==&gt; [1, 2, 4, 7, 8]<br>idx ==&gt; [0, 0, 1, 2, 2, 2, 3, 4, 4]</td>
+</tr>
+<tr>
+  <td>tf.invert_permutation(x, name=None)</td>
+  <td align="left">置换x数据与索引的关系<br># tensor <code>x</code> is [3, 4, 0, 2, 1]<br>invert_permutation(x) ==&gt; [2, 4, 3, 0, 1]</td>
+</tr>
+</tbody></table>
+
+
+<hr>
+
+
+
+<h4 id="神经网络neural-network">神经网络(Neural Network)</h4>
+
+<ul>
+<li>激活函数（Activation Functions）</li>
+</ul>
+
+<table class="tab" >
+<thead>
+<tr>
+  <th>操作</th>
+  <th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td>tf.nn.relu(features, name=None)</td>
+  <td align="left">整流函数：max(features, 0)</td>
+</tr>
+<tr>
+  <td>tf.nn.relu6(features, name=None)</td>
+  <td align="left">以6为阈值的整流函数：min(max(features, 0), 6)</td>
+</tr>
+<tr>
+  <td>tf.nn.elu(features, name=None)</td>
+  <td align="left">elu函数，exp(features) - 1 if &lt; 0,否则features<br><a href="http://arxiv.org/abs/1511.07289">Exponential Linear Units (ELUs) </a></td>
+</tr>
+<tr>
+  <td>tf.nn.softplus(features, name=None)</td>
+  <td align="left">计算softplus：log(exp(features) + 1)</td>
+</tr>
+<tr>
+  <td>tf.nn.dropout(x, keep_prob, <br>noise_shape=None, seed=None, name=None)</td>
+  <td align="left">计算dropout，keep_prob为keep概率<br>noise_shape为噪声的shape</td>
+</tr>
+<tr>
+  <td>tf.nn.bias_add(value, bias, data_format=None, name=None)</td>
+  <td align="left">对value加一偏置量<br>此函数为tf.add的特殊情况，bias仅为一维，<br>函数通过广播机制进行与value求和,<br>数据格式可以与value不同，返回为与value相同格式</td>
+</tr>
+<tr>
+  <td>tf.sigmoid(x, name=None)</td>
+  <td align="left">y = 1 / (1 + exp(-x))</td>
+</tr>
+<tr>
+  <td>tf.tanh(x, name=None)</td>
+  <td align="left">双曲线切线激活函数</td>
+</tr>
+</tbody></table>
+
+
+<ul>
+<li>卷积函数（Convolution）</li>
+</ul>
+
+<table class="tab" >
+<thead>
+<tr>
+  <th>操作</th>
+  <th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td>tf.nn.conv2d(input, filter, strides, padding, <br>use_cudnn_on_gpu=None, data_format=None, name=None)</td>
+  <td align="left">在给定的4D input与 filter下计算2D卷积<br>输入shape为 [batch, height, width, in_channels]</td>
+</tr>
+<tr>
+  <td>tf.nn.conv3d(input, filter, strides, padding, name=None)</td>
+  <td align="left">在给定的5D input与 filter下计算3D卷积<br>输入shape为[batch, in_depth, in_height, in_width, in_channels]</td>
+</tr>
+</tbody></table>
+
+
+<ul>
+<li>池化函数（Pooling）</li>
+</ul>
+
+<table class="tab" >
+<thead>
+<tr>
+  <th>操作</th>
+  <th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td>tf.nn.avg_pool(value, ksize, strides, padding, <br>data_format=’NHWC’, name=None)</td>
+  <td align="left">平均方式池化</td>
+</tr>
+<tr>
+  <td>tf.nn.max_pool(value, ksize, strides, padding, <br>data_format=’NHWC’, name=None)</td>
+  <td align="left">最大值方法池化</td>
+</tr>
+<tr>
+  <td>tf.nn.max_pool_with_argmax(input, ksize, strides,<br> padding, Targmax=None, name=None)</td>
+  <td align="left">返回一个二维元组(output,argmax),最大值pooling，返回最大值及其相应的索引</td>
+</tr>
+<tr>
+  <td>tf.nn.avg_pool3d(input, ksize, strides, <br>padding, name=None)</td>
+  <td align="left">3D平均值pooling</td>
+</tr>
+<tr>
+  <td>tf.nn.max_pool3d(input, ksize, strides, <br>padding, name=None)</td>
+  <td align="left">3D最大值pooling</td>
+</tr>
+</tbody></table>
+
+
+<ul>
+<li>数据标准化（Normalization）</li>
+</ul>
+
+<table class="tab" >
+<thead>
+<tr>
+  <th>操作</th>
+  <th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td>tf.nn.l2_normalize(x, dim, epsilon=1e-12, name=None)</td>
+  <td align="left">对维度dim进行L2范式标准化<br>output = x / sqrt(max(sum(x**2), epsilon))</td>
+</tr>
+<tr>
+  <td>tf.nn.sufficient_statistics(x, axes, shift=None, <br>keep_dims=False, name=None)</td>
+  <td align="left">计算与均值和方差有关的完全统计量<br>返回4维元组,*元素个数，*元素总和，*元素的平方和，*shift结果<br><a href="https://www.google.com/url?q=https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance#Computing_shifted_data&amp;usg=AFQjCNG5RoY7Xvpv4xg-Wy-UJvAPh2zDQw">参见算法介绍</a></td>
+</tr>
+<tr>
+  <td>tf.nn.normalize_moments(counts, mean_ss, variance_ss, shift, name=None)</td>
+  <td align="left">基于完全统计量计算均值和方差</td>
+</tr>
+<tr>
+  <td>tf.nn.moments(x, axes, shift=None, <br>name=None, keep_dims=False)</td>
+  <td align="left">直接计算均值与方差</td>
+</tr>
+</tbody></table>
+
+
+<ul>
+<li>损失函数（Losses）</li>
+</ul>
+
+<table class="tab" >
+<thead>
+<tr>
+  <th>操作</th>
+  <th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td>tf.nn.l2_loss(t, name=None)</td>
+  <td align="left">output = sum(t ** 2) / 2</td>
+</tr>
+</tbody></table>
+
+
+<ul>
+<li>分类函数（Classification）</li>
+</ul>
+
+<table class="tab" >
+<thead>
+<tr>
+  <th>操作</th>
+  <th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td>tf.nn.sigmoid_cross_entropy_with_logits<br>(logits, targets, name=None)*</td>
+  <td align="left">计算输入logits, targets的交叉熵</td>
+</tr>
+<tr>
+  <td>tf.nn.softmax(logits, name=None)</td>
+  <td align="left">计算softmax<br>softmax[i, j] = exp(logits[i, j]) / sum_j(exp(logits[i, j]))</td>
+</tr>
+<tr>
+  <td>tf.nn.log_softmax(logits, name=None)</td>
+  <td align="left">logsoftmax[i, j] = logits[i, j] - log(sum(exp(logits[i])))</td>
+</tr>
+<tr>
+  <td>tf.nn.softmax_cross_entropy_with_logits<br>(logits, labels, name=None)</td>
+  <td align="left">计算logits和labels的softmax交叉熵<br>logits, labels必须为相同的shape与数据类型</td>
+</tr>
+<tr>
+  <td>tf.nn.sparse_softmax_cross_entropy_with_logits<br>(logits, labels, name=None)</td>
+  <td align="left">计算logits和labels的softmax交叉熵</td>
+</tr>
+<tr>
+  <td>tf.nn.weighted_cross_entropy_with_logits<br>(logits, targets, pos_weight, name=None)</td>
+  <td align="left">与sigmoid_cross_entropy_with_logits()相似，<br>但给正向样本损失加了权重pos_weight</td>
+</tr>
+</tbody></table>
+
+
+<ul>
+<li>符号嵌入（Embeddings）</li>
+</ul>
+
+<table class="tab" >
+<thead>
+<tr>
+  <th>操作</th>
+  <th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td>tf.nn.embedding_lookup<br>(params, ids, partition_strategy=’mod’, <br>name=None, validate_indices=True)</td>
+  <td align="left">根据索引ids查询embedding列表params中的tensor值<br>如果len(params) &gt; 1，id将会安照partition_strategy策略进行分割<br>1、如果partition_strategy为”mod”，<br>id所分配到的位置为p = id % len(params)<br>比如有13个ids，分为5个位置，那么分配方案为：<br>[[0, 5, 10], [1, 6, 11], [2, 7, 12], [3, 8], [4, 9]]<br>2、如果partition_strategy为”div”,那么分配方案为：<br>[[0, 1, 2], [3, 4, 5], [6, 7, 8], [9, 10], [11, 12]]</td>
+</tr>
+<tr>
+  <td>tf.nn.embedding_lookup_sparse(params, <br>sp_ids, sp_weights, partition_strategy=’mod’, <br>name=None, combiner=’mean’)</td>
+  <td align="left">对给定的ids和权重查询embedding<br>1、sp_ids为一个N x M的稀疏tensor，<br>N为batch大小，M为任意，数据类型int64<br>2、sp_weights的shape与sp_ids的稀疏tensor权重，<br>浮点类型，若为None，则权重为全’1’</td>
+</tr>
+</tbody></table>
+
+
+<ul>
+<li>循环神经网络（Recurrent Neural Networks）</li>
+</ul>
+
+<table class="tab" >
+<thead>
+<tr>
+  <th>操作</th>
+  <th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td>tf.nn.rnn(cell, inputs, initial_state=None, dtype=None, <br>sequence_length=None, scope=None)</td>
+  <td align="left">基于RNNCell类的实例cell建立循环神经网络<br></td>
+</tr>
+<tr>
+  <td>tf.nn.dynamic_rnn(cell, inputs, sequence_length=None, <br>initial_state=None, dtype=None, parallel_iterations=None, <br>swap_memory=False, time_major=False, scope=None)</td>
+  <td align="left">基于RNNCell类的实例cell建立动态循环神经网络<br>与一般rnn不同的是，该函数会根据输入动态展开<br>返回(outputs,state)</td>
+</tr>
+<tr>
+  <td>tf.nn.state_saving_rnn(cell, inputs, state_saver, state_name, <br>sequence_length=None, scope=None)</td>
+  <td align="left">可储存调试状态的RNN网络</td>
+</tr>
+<tr>
+  <td>tf.nn.bidirectional_rnn(cell_fw, cell_bw, inputs, <br>initial_state_fw=None, initial_state_bw=None, dtype=None,<br> sequence_length=None, scope=None)</td>
+  <td align="left">双向RNN, 返回一个3元组tuple<br>(outputs, output_state_fw, output_state_bw)</td>
+</tr>
+</tbody></table>
+
+
+<blockquote>
+  <p>— <strong><em>tf.nn.rnn简要介绍</em></strong>— <br>
+    cell: 一个RNNCell实例 <br>
+    inputs: 一个shape为[batch_size, input_size]的tensor <br>
+    initial_state: 为RNN的state设定初值，可选 <br>
+    sequence_length：制定输入的每一个序列的长度，size为[batch_size],值范围为[0, T)的int型数据 <br>
+    其中T为输入数据序列的长度 <br>
+    @ <br>
+    @针对输入batch中序列长度不同，所设置的动态计算机制 <br>
+    @对于在时间t，和batch的b行，有 <br>
+    (output, state)(b, t) = ? (zeros(cell.output_size), states(b, sequence_length(b) - 1)) : cell(input(b, t), state(b, t - 1))</p>
+  
+  <hr>
+</blockquote>
+
+<ul>
+<li>求值网络（Evaluation）</li>
+</ul>
+
+<table class="tab" >
+<thead>
+<tr>
+  <th>操作</th>
+  <th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td>tf.nn.top_k(input, k=1, sorted=True, name=None)</td>
+  <td align="left">返回前k大的值及其对应的索引</td>
+</tr>
+<tr>
+  <td>tf.nn.in_top_k(predictions, targets, k, name=None)</td>
+  <td align="left">返回判断是否targets索引的predictions相应的值<br>是否在在predictions前k个位置中，<br>返回数据类型为bool类型，len与predictions同</td>
+</tr>
+</tbody></table>
+
+
+<ul>
+<li><a href="https://www.tensorflow.org/versions/r0.10/extras/candidate_sampling.pdf">监督候选采样网络（Candidate Sampling）</a></li>
+</ul>
+
+<p>对于有巨大量的多分类与多标签模型，如果使用全连接softmax将会占用大量的时间与空间资源，所以采用候选采样方法仅使用一小部分类别与标签作为监督以加速训练。</p>
+
+<table class="tab" >
+<thead>
+<tr>
+  <th>操作</th>
+  <th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td><strong><em>Sampled Loss Functions</em></strong></td>
+  <td align="left"></td>
+</tr>
+<tr>
+  <td>tf.nn.nce_loss(weights, biases, inputs, labels, num_sampled,<br> num_classes, num_true=1, sampled_values=None,<br> remove_accidental_hits=False, partition_strategy=’mod’,<br> name=’nce_loss’)</td>
+  <td align="left">返回noise-contrastive的训练损失结果</td>
+</tr>
+<tr>
+  <td>tf.nn.sampled_softmax_loss(weights, biases, inputs, labels, <br>num_sampled, num_classes, num_true=1, sampled_values=None,<br> remove_accidental_hits=True, partition_strategy=’mod’, <br>name=’sampled_softmax_loss’)</td>
+  <td align="left">返回sampled softmax的训练损失<br><a href="http://arxiv.org/pdf/1412.2007.pdf">参考- Jean et al., 2014第3部分</a></td>
+</tr>
+<tr>
+  <td><strong><em>Candidate Samplers</em></strong></td>
+  <td align="left"></td>
+</tr>
+<tr>
+  <td>tf.nn.uniform_candidate_sampler(true_classes, num_true, <br>num_sampled, unique, range_max, seed=None, name=None)</td>
+  <td align="left">通过均匀分布的采样集合<br>返回三元tuple<br>1、sampled_candidates 候选集合。<br>2、期望的true_classes个数，为浮点值<br>3、期望的sampled_candidates个数，为浮点值</td>
+</tr>
+<tr>
+  <td>tf.nn.log_uniform_candidate_sampler(true_classes, num_true,<br> num_sampled, unique, range_max, seed=None, name=None)</td>
+  <td align="left">通过log均匀分布的采样集合，返回三元tuple</td>
+</tr>
+<tr>
+  <td>tf.nn.learned_unigram_candidate_sampler<br>(true_classes, num_true, num_sampled, unique, <br>range_max, seed=None, name=None)</td>
+  <td align="left">根据在训练过程中学习到的分布状况进行采样<br>返回三元tuple</td>
+</tr>
+<tr>
+  <td>tf.nn.fixed_unigram_candidate_sampler(true_classes, num_true,<br> num_sampled, unique, range_max, vocab_file=”, <br>distortion=1.0, num_reserved_ids=0, num_shards=1, <br>shard=0, unigrams=(), seed=None, name=None)</td>
+  <td align="left">基于所提供的基本分布进行采样</td>
+</tr>
+</tbody></table>
+
+
+
+
+<h1 id="保存与恢复变量">保存与恢复变量</h1>
+
+<table class="tab" >
+<thead>
+<tr>
+  <th>操作</th>
+  <th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td>类tf.train.Saver(Saving and Restoring Variables)</td>
+  <td align="left"></td>
+</tr>
+<tr>
+  <td>tf.train.Saver.__init__(var_list=None, reshape=False, <br>sharded=False, max_to_keep=5, <br>keep_checkpoint_every_n_hours=10000.0, <br>name=None, restore_sequentially=False,<br> saver_def=None, builder=None)</td>
+  <td align="left">创建一个存储器Saver<br>var_list定义需要存储和恢复的变量</td>
+</tr>
+<tr>
+  <td>tf.train.Saver.save(sess, save_path, global_step=None, <br>latest_filename=None, meta_graph_suffix=’meta’,<br> write_meta_graph=True)</td>
+  <td align="left">保存变量</td>
+</tr>
+<tr>
+  <td>tf.train.Saver.restore(sess, save_path)</td>
+  <td align="left">恢复变量</td>
+</tr>
+<tr>
+  <td>tf.train.Saver.last_checkpoints</td>
+  <td align="left">列出最近未删除的checkpoint 文件名</td>
+</tr>
+<tr>
+  <td>tf.train.Saver.set_last_checkpoints(last_checkpoints)</td>
+  <td align="left">设置checkpoint文件名列表</td>
+</tr>
+<tr>
+  <td>tf.train.Saver.set_last_checkpoints_with_time(last_checkpoints_with_time)</td>
+  <td align="left">设置checkpoint文件名列表和时间戳</td>
+</tr>
+</tbody></table>
+
+</body>
+</html>   
+ 
