@@ -6,12 +6,9 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 
-#interactive mode
-###plt.ion()
 n_observations = 100
 xs = np.linspace(-3, 3, n_observations)
 ys = np.sin(xs) + np.random.uniform(-0.5, 0.5, n_observations)
-###ys = np.sin(xs)
 
 X = tf.placeholder(tf.float32)
 Y = tf.placeholder(tf.float32)
@@ -19,8 +16,10 @@ Y = tf.placeholder(tf.float32)
 W1 = tf.Variable(tf.random_normal([1]), name='weight')
 W2 = tf.Variable(tf.random_normal([1]), name='weight')
 b = tf.Variable(tf.random_normal([1]), name='bias')
-# Y = W * X + b
+# Y = W * X^2 + b
 Y_pred = tf.add(tf.add(tf.multiply(tf.pow(X, 2.0), W1), tf.multiply(X, W2)), b)
+
+# Y = W1 * X^3 + W2 * X + b
 #Y_pred = tf.add(tf.add(tf.multiply(tf.pow(X, 3.0), W1), tf.multiply(X, W2)), b)
 #use 3.0, we get linear_regiression3.png which shows better result
 

@@ -6,12 +6,9 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 
-#interactive mode
-###plt.ion()
 n_observations = 100
 xs = np.linspace(-3, 3, n_observations)
 ys = np.sin(xs) + np.random.uniform(-0.5, 0.5, n_observations)
-###ys = np.sin(xs)
 
 X = tf.placeholder(tf.float32)
 Y = tf.placeholder(tf.float32)
