@@ -1,3 +1,3 @@
-#Chapter
-##Linear Regression
+#Chapter    
+##Linear Regression    
 ##Logistic Regression
