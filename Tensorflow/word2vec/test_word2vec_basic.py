@@ -1,3 +1,5 @@
+#-*- coding: UTF-8 -*-
+
 # Copyright 2015 The TensorFlow Authors. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,7 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
-#-*- coding: UTF-8 -*-
 
 from __future__ import absolute_import
 from __future__ import division
