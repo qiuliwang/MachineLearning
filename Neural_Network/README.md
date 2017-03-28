@@ -1,3 +1,3 @@
-#Neural Network    
-###BP Net    
-###XOR
+Neural Network    
+BP Net    
+XOR
