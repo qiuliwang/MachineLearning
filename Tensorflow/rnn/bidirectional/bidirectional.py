@@ -15,7 +15,7 @@ n_hidden = 256
 n_class = 10
 
 x = tf.placeholder("float", [None, n_steps, n_input])
-y = tf.placeholder("float", n_class)
+y = tf.placeholder("float", [None, n_class])
 
 weights = tf.Variable(tf.random_normal([2 * n_hidden, n_class]))
 biases = tf.Variable(tf.random_normal([n_class]))
@@ -60,7 +60,7 @@ with tf.Session() as sess:
             "{:.6f}".format(loss) + ", Training Accuracy = " + \
             "{:.5f}".format(acc)
             )
-        setp += 1
+        step += 1
     print("Optimization Finished")
 
 test_len = 10000
