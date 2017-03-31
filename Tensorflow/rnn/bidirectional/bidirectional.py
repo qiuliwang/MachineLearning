@@ -1,3 +1,8 @@
+"""
+WangQL
+Tue Mar 29 2017
+"""
+
 from __future__ import print_function
 
 import tensorflow as tf
