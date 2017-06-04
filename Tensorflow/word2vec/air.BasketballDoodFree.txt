@@ -1,0 +1,111 @@
+android.app.AlertDialog.Builder.New android.app.AlertDialog.Builder.setTitle android.app.AlertDialog.Builder.setMessage android.app.AlertDialog.Builder.setPositiveButton android.app.AlertDialog.Builder.setNegativeButton android.app.AlertDialog.Builder.setOnCancelListener android.app.AlertDialog.Builder.show 
+mSensorManager.registerListener 
+mSensorManager.unregisterListener 
+updateSharedPrefForInitialLaunch mGameListingWebView.create mGameListingWebView.loadUrl onNewIntent 
+mGameListingWebView.setOffline mGameListingWebView.loadUrl 
+AndroidActivityWrapper.CreateAndroidActivityWrapper (new android.app.AlertDialog.Builder(this)).setTitle("Adobe\256 AIR\256").setMessage(AndroidLocale.GetLocalizedString(AndroidLocale.STRING_ID.IDA_RUNTIME_UPDATE_MESSAGE)).create alertDialog.setButton alertDialog.setButton alertDialog.setOnKeyListener alertDialog.setCancelable alertDialog.show 
+setOnSystemUiVisibilityChangeListener 
+m_layout.addView m_layout.addView m_layout.addView m_layout.addView m_activity.setContentView m_mainView.requestFocus m_mainView.onWindowFocusChanged setFullScreenFromMetaData m_mainView.setFullScreen OrientationManager.getOrientationManager mOrientationManager.onActivityCreated callActivityStateListeners HDMIUtils.initHelper 
+AndroidActivityWrapper.GetAndroidActivityWrapper context.addActivityStateChangeListner context.addInputEventListner 
+AndroidActivityWrapper.GetAndroidActivityWrapper().addActivityResultListener 
+AndroidActivityWrapper.GetAndroidActivityWrapper().getActivity mView.setFillViewport mView.setLayerType mTextView.getKeyListener setFontSize mView.addView mTextView.setSingleLine mTextView.setGravity 
+Iterator.New ArrayList.New mFileInfoMap.keySet().iterator 
+ArrayList.New Iterator.New mFileInfoMap.keySet().iterator 
+SystemClock.uptimeMillis AndroidActivityWrapper.GetAndroidActivityWrapper().addActivityStateChangeListner 
+m_filterList.add 
+android.app.AlertDialog.Builder.New android.app.AlertDialog.Builder.setTitle android.app.AlertDialog.Builder.setMessage android.app.AlertDialog.Builder.setPositiveButton android.app.AlertDialog.Builder.setNegativeButton android.app.AlertDialog.Builder.setOnCancelListener android.app.AlertDialog.Builder.show 
+LinearLayout.New LinearLayout.setLayoutParams Object.New ((TextView)(obj)).setText ((TextView)(obj)).setLayoutParams ((TextView)(obj)).setPadding LinearLayout.addView ((android.app.AlertDialog.Builder)(obj)).setIcon ((android.app.AlertDialog.Builder)(obj)).setView ((android.app.AlertDialog.Builder)(obj)).setTitle ((android.app.AlertDialog.Builder)(obj)).setPositiveButton ((android.app.AlertDialog.Builder)(obj)).setNegativeButton ((android.app.AlertDialog.Builder)(obj)).setOnCancelListener ((android.app.AlertDialog.Builder)(obj)).show 
+mOrientationEventListner.enable 
+LinearLayout.New LinearLayout.setLayoutParams LinearLayout.setOrientation TextView.New Object.New TextView.setText TextView.setLayoutParams TextView.setPadding pTextinput.setLayoutParams pTextinput.setHeight pTextinput.setWidth LinearLayout.addView LinearLayout.addView ((android.app.AlertDialog.Builder)(obj)).setView ((android.app.AlertDialog.Builder)(obj)).setTitle ((android.app.AlertDialog.Builder)(obj)).setPositiveButton ((android.app.AlertDialog.Builder)(obj)).setNegativeButton ((android.app.AlertDialog.Builder)(obj)).setOnCancelListener ((android.app.AlertDialog.Builder)(obj)).show 
+(new android.app.AlertDialog.Builder(mActivity)).create AlertDialog.New AlertDialog.setTitle AlertDialog.setMessage AlertDialog.setButton AlertDialog.setOnKeyListener AlertDialog.setCancelable 
+mSensorMgr.unregisterListener 
+mShakeListener.registerListener 
+mGPSListener.onLocationChanged mLocationManager.requestLocationUpdates 
+addGPSListener addNetworkListener 
+removeLocationListeners 
+removeGPSListener removeNetworkListener 
+ArrayList.New ArrayList.add ArrayList.add ArrayList.add ArrayList.add 
+ArrayList.New ArrayList.add ArrayList.add ArrayList.add 
+mTouchSensor.startGestureEventListening mTouchSensor.stopGestureEventListening sendLogNotification 
+mTouchSensor.startTouchEventListening mTouchSensor.stopTouchEventListening sendLogNotification 
+ConnectionChangeReceiver.resisterWandConnection mWandConnection.registerListener mWandView.registerListener wandview.getTouchSensor 
+mTaskManager.terminateRunningTasks mTaskManager.unregisterListener mWandView.unregisterListener mAccelerometer.dispose mWandConnection.unregisterListener ConnectionChangeReceiver.unresisterWandConnection 
+c ArrayList.New ArrayList.addAll c c ArrayList.New list.add c bundle.putStringArrayList c 
+ArrayList.New b.values().iterator Iterator.New 
+startSocketServer mConnectionListener.updateConnectionToken mConnectionListener.onConnectSuccess 
+forceCloseConnection stopSocketServer mConnectionListener.onDisconnectSuccess 
+disconnect unregisterListener mConnection.close mHandshakeTimer.cancel mHandshakeTimer.purge 
+stop setListener 
+mSensorManager.unregisterListener 
+mListener.onTouchEvent 
+mListener.onGestureEvent 
+mOnConnectedListener.onConnected 
+mOnConnectedListener.onDisconnected 
+ByteArrayOutputStream.New PrintStream.New throwable.printStackTrace PrintStream.flush 
+ArrayList.New java.util.Map.Entry.New 
+Object.New ((AnalyticsStoreStateListener)(obj)).reportStoreIsEmpty 
+mClock.currentTimeMillis Object.New ((AnalyticsStoreStateListener)(obj)).reportStoreIsEmpty 
+HashMap.New ByteArrayOutputStream.New ObjectOutputStream.New ObjectOutputStream.writeObject ObjectOutputStream.close HashMap.put HashMap.put HashMap.put GAUsage.getInstance().setUsage 
+a.setAdListener 
+a.setAdListener 
+com.google.android.gms.common.internal.safeparcel.a.o Uri.New java.util.ArrayList.New java.util.ArrayList.New 
+com.google.android.gms.common.internal.safeparcel.a.o java.util.ArrayList.New 
+ErrorDialogFragment.New dialog.setOnCancelListener dialog.setOnDismissListener 
+Object.New Log.w ByteArrayInputStream.New packageinfo.signatures[0].toByteArray Log.v 
+(new android.app.AlertDialog.Builder(activity)).setMessage android.app.AlertDialog.Builder.New android.app.AlertDialog.Builder.setOnCancelListener android.app.AlertDialog.Builder.setPositiveButton 
+c.setOnClickListener 
+Context.New fq.a fq.a removeView addView c.setEnabled c.setOnClickListener 
+SupportErrorDialogFragment.New dialog.setOnCancelListener dialog.setOnDismissListener 
+com.google.android.gms.common.internal.safeparcel.a.o android.os.Bundle.New java.util.ArrayList.New av.New Location.New 
+jsonobject.getString jsonobject.getJSONArray Object.New ArrayList.New ArrayList.add Collections.unmodifiableList jsonobject.optString bo.a jsonobject.optJSONObject jsonobject.optJSONObject 
+dw.y s.getJSONArray JSONArray.New ArrayList.New ArrayList.add JSONArray.length Collections.unmodifiableList s.getString s.optJSONObject 
+addView c.aW d.setOnCompletionListener d.setOnPreparedListener d.setOnErrorListener 
+setOnClickListener b.setImageResource b.setBackgroundColor b.setOnClickListener b.setPadding dv.a addView 
+InAppPurchaseListener.New InAppPurchaseListener.a 
+com.google.android.gms.common.internal.safeparcel.a.o java.util.ArrayList.New java.util.ArrayList.New java.util.ArrayList.New 
+setBackgroundColor ak1.setJavaScriptEnabled ak1.setSavePassword ak1.setSupportMultipleWindows ak1.setJavaScriptCanOpenWindowsAutomatically dq.a dt.a setDownloadListener setWebViewClient setWebChromeClient a 
+android.app.AlertDialog.Builder.New android.app.AlertDialog.Builder.setTitle s.setOrientation jsresult.setText context.setText s.addView s.addView android.app.AlertDialog.Builder.setView(s).setPositiveButton(0x104000a,new _cls6(jspromptresult,context)).setNegativeButton(0x1040000,new _cls5(jspromptresult)).setOnCancelListener(new _cls4(jspromptresult)).create().show 
+registerConnectionFailedListener 
+com.google.android.gms.cast.Cast.Listener.a a.b com.google.android.gms.cast.Cast.Listener.c 
+b registerConnectionCallbacks registerConnectionFailedListener 
+com.google.android.gms.common.internal.safeparcel.a.o java.util.ArrayList.New 
+ArrayList.New 
+com.google.android.gms.common.internal.safeparcel.a.o java.util.ArrayList.New 
+ArrayList.New 
+java.util.ArrayList.New com.google.android.gms.common.internal.safeparcel.a.o 
+com.google.android.gms.common.internal.safeparcel.a.o java.util.ArrayList.New 
+com.google.android.gms.common.internal.safeparcel.a.o java.util.ArrayList.New 
+com.google.android.gms.common.internal.safeparcel.a.o java.util.ArrayList.New LatLng.New 
+com.google.android.gms.common.internal.safeparcel.a.o HashSet.New ic.New java.util.ArrayList.New ic.New java.util.ArrayList.New java.util.ArrayList.New ic.New java.util.ArrayList.New ic.New java.util.ArrayList.New ic.New ic.New ic.New ic.New java.util.ArrayList.New ic.New ic.New 
+com.google.android.gms.common.internal.safeparcel.a.o HashSet.New ih.a.New ih.b.New ih.c.New ih.d.New java.util.ArrayList.New java.util.ArrayList.New java.util.ArrayList.New 
+com.google.android.gms.common.internal.safeparcel.a.o gi.fs java.util.ArrayList.New 
+s.getBytes da p 
+ByteBuffer.wrap s.get 
+Object.New ByteBuffer.allocate ((ByteBuffer)(obj)).put ((ByteBuffer)(obj)).flip ((ByteBuffer)(obj)).get ((ByteBuffer)(obj)).get Cipher.getInstance ((Cipher)(obj)).init ((Cipher)(obj)).doFinal 
+a.registerConnectionFailedListener 
+a.unregisterConnectionFailedListener 
+com.google.android.gms.common.internal.safeparcel.a.o java.util.ArrayList.New 
+ArrayList.New a.addGeofences 
+a.registerConnectionFailedListener 
+a.unregisterConnectionFailedListener 
+ft.a ft.a removeView g.a a.setOnClickListener addView 
+com.google.android.gms.common.internal.safeparcel.a.o ArrayList.New 
+com.google.android.gms.common.internal.safeparcel.a.o gi.fs java.util.ArrayList.New ju.New gi.fs java.util.ArrayList.New gi.fs java.util.ArrayList.New gi.fs java.util.ArrayList.New gi.fs java.util.ArrayList.New gi.fs java.util.ArrayList.New jo.New 
+g.registerConnectionFailedListener 
+g.unregisterConnectionFailedListener 
+ArrayList.New arraylist.size ArrayList.add 
+ArrayList.New ArrayList.add 
+ArrayList.New 
+PopupManager.a g.a registerConnectionCallbacks registerConnectionFailedListener 
+ArrayList.New ArrayList.add 
+com.google.android.gms.common.internal.safeparcel.a.o GameEntity.New ParticipantEntity.New java.util.ArrayList.New 
+com.google.android.gms.common.internal.safeparcel.a.o java.util.ArrayList.New 
+bundle.putByteArray 
+parcel.writeInt parcel.writeByteArray b 
+bundle.putParcelableArrayList 
+bundle.putStringArrayList 
+ArrayList.New bundle.size ArrayList.add 
+com.google.android.gms.common.internal.safeparcel.a.o java.util.ArrayList.New 
+com.google.android.gms.common.internal.safeparcel.a.o java.util.ArrayList.New 
+parcel.writeString parcel.writeByteArray parcel.writeInt 
+com.google.android.gms.common.internal.safeparcel.a.o android.os.Bundle.New java.util.ArrayList.New 
