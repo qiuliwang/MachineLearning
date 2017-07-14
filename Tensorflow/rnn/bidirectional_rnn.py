@@ -32,7 +32,7 @@ display_step = 10
 # Network Parameters
 n_input = 28 # MNIST data input (img shape: 28*28)
 n_steps = 28 # timesteps
-n_hidden = 256 # hidden layer num of features
+n_hidden = 128 # hidden layer num of features
 n_classes = 10 # MNIST total classes (0-9 digits)
 
 # tf Graph input
@@ -55,12 +55,8 @@ def BiRNN(x, weights, biases):
     # Current data input shape: (batch_size, n_steps, n_input)
     # Required shape: 'n_steps' tensors list of shape (batch_size, n_input)
 
-    # Permuting batch_size and n_steps
-    x = tf.transpose(x, [1, 0, 2])
-    # Reshape to (n_steps*batch_size, n_input)
-    x = tf.reshape(x, [-1, n_input])
-    # Split to get a list of 'n_steps' tensors of shape (batch_size, n_input)
-    x = tf.split(x, n_steps, 0)
+    # Unstack to get a list of 'n_steps' tensors of shape (batch_size, n_input)
+    x = tf.unstack(x, n_steps, 1)
 
     # Define lstm cells with tensorflow
     # Forward direction cell
@@ -115,7 +111,7 @@ with tf.Session() as sess:
     print("Optimization Finished!")
 
     # Calculate accuracy for 128 mnist test images
-    test_len = 10000
+    test_len = 128
     test_data = mnist.test.images[:test_len].reshape((-1, n_steps, n_input))
     test_label = mnist.test.labels[:test_len]
     print("Testing Accuracy:", \

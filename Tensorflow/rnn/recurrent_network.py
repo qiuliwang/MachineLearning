@@ -52,17 +52,9 @@ def RNN(x, weights, biases):
     # Prepare data shape to match `rnn` function requirements
     # Current data input shape: (batch_size, n_steps, n_input)
     # Required shape: 'n_steps' tensors list of shape (batch_size, n_input)
-    
-    # Permuting batch_size and n_steps
-    # x(?, 28, 28)
-    # x(28, ?, 28)
-    # x(?, 28)
 
-    x = tf.transpose(x, [1, 0, 2])
-    # Reshaping to (n_steps*batch_size, n_input)
-    x = tf.reshape(x, [-1, n_input])
-    # Split to get a list of 'n_steps' tensors of shape (batch_size, n_input)
-    x = tf.split(x, n_steps, 0)
+    # Unstack to get a list of 'n_steps' tensors of shape (batch_size, n_input)
+    x = tf.unstack(x, n_steps, 1)
 
     # Define a lstm cell with tensorflow
     lstm_cell = rnn.BasicLSTMCell(n_hidden, forget_bias=1.0)
@@ -80,10 +72,7 @@ cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=pred, label
 optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
 
 # Evaluate model
-# tf.equal
-# 1,1,0,1
 correct_pred = tf.equal(tf.argmax(pred,1), tf.argmax(y,1))
-# 0.75
 accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 
 # Initializing the variables
