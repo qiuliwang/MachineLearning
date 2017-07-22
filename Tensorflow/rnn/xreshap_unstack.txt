@@ -1,0 +1,34 @@
+Tensor("Placeholder:0", shape=(?, 28, 28), dtype=float32)
+
+after unstack
+
+[
+    <tf.Tensor 'unstack:0' shape=(?, 28) dtype=float32>, 
+    <tf.Tensor 'unstack:1' shape=(?, 28) dtype=float32>, 
+    <tf.Tensor 'unstack:2' shape=(?, 28) dtype=float32>, 
+    <tf.Tensor 'unstack:3' shape=(?, 28) dtype=float32>, 
+    <tf.Tensor 'unstack:4' shape=(?, 28) dtype=float32>, 
+    <tf.Tensor 'unstack:5' shape=(?, 28) dtype=float32>, 
+    <tf.Tensor 'unstack:6' shape=(?, 28) dtype=float32>, 
+    <tf.Tensor 'unstack:7' shape=(?, 28) dtype=float32>, 
+    <tf.Tensor 'unstack:8' shape=(?, 28) dtype=float32>, 
+    <tf.Tensor 'unstack:9' shape=(?, 28) dtype=float32>, 
+    <tf.Tensor 'unstack:10' shape=(?, 28) dtype=float32>, 
+    <tf.Tensor 'unstack:11' shape=(?, 28) dtype=float32>, 
+    <tf.Tensor 'unstack:12' shape=(?, 28) dtype=float32>, 
+    <tf.Tensor 'unstack:13' shape=(?, 28) dtype=float32>, 
+    <tf.Tensor 'unstack:14' shape=(?, 28) dtype=float32>, 
+    <tf.Tensor 'unstack:15' shape=(?, 28) dtype=float32>, 
+    <tf.Tensor 'unstack:16' shape=(?, 28) dtype=float32>, 
+    <tf.Tensor 'unstack:17' shape=(?, 28) dtype=float32>, 
+    <tf.Tensor 'unstack:18' shape=(?, 28) dtype=float32>, 
+    <tf.Tensor 'unstack:19' shape=(?, 28) dtype=float32>, 
+    <tf.Tensor 'unstack:20' shape=(?, 28) dtype=float32>, 
+    <tf.Tensor 'unstack:21' shape=(?, 28) dtype=float32>, 
+    <tf.Tensor 'unstack:22' shape=(?, 28) dtype=float32>, 
+    <tf.Tensor 'unstack:23' shape=(?, 28) dtype=float32>, 
+    <tf.Tensor 'unstack:24' shape=(?, 28) dtype=float32>, 
+    <tf.Tensor 'unstack:25' shape=(?, 28) dtype=float32>, 
+    <tf.Tensor 'unstack:26' shape=(?, 28) dtype=float32>, 
+    <tf.Tensor 'unstack:27' shape=(?, 28) dtype=float32>
+    ]
