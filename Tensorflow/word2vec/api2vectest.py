@@ -50,12 +50,12 @@ def read_data(filename):
   return data
 
 words = read_data(filename)
-#print('data', words[0:20])
-print('Data size: ', len(words))
-# comadobe.zip size : 4626
+print('data', words[0:20])
+print('Data size', len(words))
+
 # Step 2: Build the dictionary and replace rare words with UNK token.
-vocabulary_size = 2313 #4626
-print('Vocabulary size: ', vocabulary_size)
+vocabulary_size = 2000
+
 
 def build_dataset(words):
   count = [['UNK', -1]]
@@ -82,7 +82,7 @@ def build_dataset(words):
 data, count, dictionary, reverse_dictionary = build_dataset(words)
 del words  # Hint to reduce memory.
 print('Most common words (+UNK)', count[:5])
-#print('Sample data', data[:1000], [reverse_dictionary[i] for i in data[:10]])
+print('Sample data', data[:10], [reverse_dictionary[i] for i in data[:10]])
 
 data_index = 0
 
@@ -147,16 +147,21 @@ def generate_batch(batch_size, num_skips, skip_window):
   #print('data_index: ', data_index)
 
   return batch, labels
-  
+
+"""
+
+precess starts here
+
+"""
 batch, labels = generate_batch(batch_size=8, num_skips=2, skip_window=1)
-# for i in range(8):
-#   print(batch[i], reverse_dictionary[batch[i]],
-#         '->', labels[i, 0], reverse_dictionary[labels[i, 0]])
+for i in range(8):
+  print(batch[i], reverse_dictionary[batch[i]],
+        '->', labels[i, 0], reverse_dictionary[labels[i, 0]])
 
 # Step 4: Build and train a skip-gram model.
 
-batch_size = 8
-embedding_size = 8  # Dimension of the embedding vector.
+batch_size = 128
+embedding_size = 128  # Dimension of the embedding vector.
 skip_window = 1       # How many words to consider left and right.
 num_skips = 2         # How many times to reuse an input to generate a label.
 
@@ -223,7 +228,7 @@ with graph.as_default():
   init = tf.global_variables_initializer() 
   
 # Step 5: Begin training. 100001
-num_steps = 5000
+num_steps = 2000
 
 with tf.Session(graph=graph) as session:
   # We must initialize all variables before we use them.
@@ -243,13 +248,13 @@ with tf.Session(graph=graph) as session:
 
     if step % 200 == 0:
       if step > 0:
-        average_loss /= 200
-      # The average loss is an estimate of the loss over the last 200 batches.
+        average_loss /= 2000
+      # The average loss is an estimate of the loss over the last 2000 batches.
       print("Average loss at step ", step, ": ", average_loss)
       average_loss = 0
 
     # Note that this is expensive (~20% slowdown if computed every 500 steps)
-    if step % 5000 == 0:
+    if step % 1000 == 0:
       sim = similarity.eval()
       for i in xrange(valid_size):
         valid_word = reverse_dictionary[valid_examples[i]]
