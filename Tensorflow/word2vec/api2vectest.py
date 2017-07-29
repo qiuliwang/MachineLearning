@@ -228,7 +228,7 @@ with graph.as_default():
   init = tf.global_variables_initializer() 
   
 # Step 5: Begin training. 100001
-num_steps = 2000
+num_steps = 5000
 
 with tf.Session(graph=graph) as session:
   # We must initialize all variables before we use them.
@@ -291,7 +291,7 @@ try:
   matplotlib.use('Agg')
   import matplotlib.pyplot as plt
   tsne = TSNE(perplexity=30, n_components=2, init='pca', n_iter=5000)
-  plot_only = 500
+  plot_only = 100
   #Fit X into an embedded space and return that transformed output.
   low_dim_embs = tsne.fit_transform(final_embeddings[:plot_only, :])
   labels = [reverse_dictionary[i] for i in xrange(plot_only)]
