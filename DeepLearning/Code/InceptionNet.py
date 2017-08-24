@@ -9,6 +9,7 @@ import tensorflow as tf
 slim = tf.contrib.slim
 trunc_normal = lambda stddev: tf.truncated_normal_initializer(0.0, stddev)
 import time
+import math
 from datetime import datetime
 
 def inception_v3_arg_scope(weight_decay = 0.00004,
