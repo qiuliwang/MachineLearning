@@ -36,8 +36,8 @@ def bagOfWords2VecMN(vocabList,inputSet):
     return returnVec
 #朴素贝叶斯分类器训练集
 def trainNB0(trainMatrix,trainCategory):  #传入参数为文档矩阵，每篇文档类别标签所构成的向量
-    #print(trainMatrix)
-    #print(trainCategory)
+    print(trainMatrix)
+    print(trainCategory)
     numTrainDocs = len(trainMatrix)      #文档矩阵的长度
     numWords = len(trainMatrix[0])       #第一个文档的单词个数
     pAbusive = sum(trainCategory)/float(numTrainDocs)  #任意文档属于侮辱性文档概率
